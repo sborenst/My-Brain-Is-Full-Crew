@@ -392,7 +392,9 @@ Replace the default values with the user's confirmed folder paths. The YAML fron
 Summarize everything the user has told you. Ask them to confirm or correct anything. Then execute the following steps in order:
 
 **A. Vault structure**
-1. Create the base vault folder structure (00-Inbox, 01-Projects, 02-Areas, 03-Resources, 04-Archive, 05-People, 06-Meetings, 07-Daily, MOC, Templates, Meta)
+1. Read `Meta/vault-map.md` (created in Phase 3b). For each of the 11 roles, check whether the mapped folder already exists:
+   - If the folder exists → skip creation, it is already there
+   - If the folder does not exist → create it using the path from vault-map.md (e.g., if `inbox: Inbox`, create `Inbox/` — not `00-Inbox/`)
 2. **Run the Area Scaffolding Procedure (Section 4) for EVERY life area the user selected.** This is critical — do not just create empty `02-Areas/` folders. For each area: create sub-folders based on Phase 2a answers, create `_index.md`, create `MOC/{{Area}}.md`, add area-specific templates.
 3. Save the user profile to `Meta/user-profile.md`
 4. Create all core templates in `Templates/` — include area-specific templates (Work Log, Book, Course, Budget Entry, Investment, Weekly Review) based on which areas were selected
@@ -400,7 +402,7 @@ Summarize everything the user has told you. Ask them to confirm or correct anyth
 6. Initialize `Meta/agent-log.md`
 7. Create the master MOC at `MOC/Index.md` — it MUST link to every area MOC created in step 2
 8. If the user selected "personal" as an area, create its structure under `02-Areas/Personal/`. Link it from the master MOC.
-9. Create a personalized welcome note in `00-Inbox/` titled with today's date and "Welcome to Your Vault"
+9. Create a personalized welcome note in the inbox folder (as mapped in `Meta/vault-map.md`) titled with today's date and "Welcome to Your Vault"
 
 **B. Scope the crew to this vault only (critical step)**
 
@@ -1411,7 +1413,8 @@ When running a full vault initialization, verify all of these are done before cl
 - [ ] `MOC/Index.md` created **with links to every area MOC**
 - [ ] One MOC per area created in `MOC/`
 - [ ] Terms of Use accepted and recorded in `Meta/user-profile.md`
-- [ ] Welcome note created in `00-Inbox/`
+- [ ] `Meta/vault-map.md` created with all 11 roles mapped
+- [ ] Welcome note created in the inbox folder (per vault-map.md)
 - [ ] `.claude/agents/` created inside vault with selected agent files copied
 - [ ] `.mcp.json` created at vault root (if Gmail or Calendar selected)
 - [ ] User informed about vault scoping (agents only activate in this folder)
