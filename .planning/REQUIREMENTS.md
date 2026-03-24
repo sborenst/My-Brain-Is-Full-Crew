@@ -27,7 +27,7 @@
 
 ### Scripts
 
-- [ ] **SCR-01**: `launchme.sh` and `updateme.sh` reviewed and updated if they contain hardcoded vault path references
+- [x] **SCR-01**: `launchme.sh` and `updateme.sh` reviewed and updated if they contain hardcoded vault path references
 
 ## v2 Requirements
 
@@ -62,7 +62,7 @@
 | AGT-03 | Phase 3 | Pending |
 | AGT-04 | Phase 3 | Pending |
 | DOC-01 | Phase 4 | Pending |
-| SCR-01 | Phase 1 | Pending |
+| SCR-01 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 12 total

@@ -12,7 +12,7 @@ This roadmap transforms the Crew from a system with hardcoded folder paths into 
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Scripts Audit** - Review and update launchme.sh and updateme.sh for hardcoded vault path references
+- [x] **Phase 1: Scripts Audit** - Review and update launchme.sh and updateme.sh for hardcoded vault path references
 - [ ] **Phase 2: Vault Mapping** - Enhance Architect agent with vault-mapping onboarding phase that generates vault-map.md
 - [ ] **Phase 3: Agent Path Resolution** - Replace all hardcoded paths across 8 agents and CLAUDE.md with role tokens and resolution preamble
 - [ ] **Phase 4: Documentation** - Create docs/vault-mapping.md explaining the pattern, customization, and defaults
@@ -27,7 +27,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   1. `launchme.sh` either contains no hardcoded vault folder references or has been updated to use configurable/dynamic paths
   2. `updateme.sh` either contains no hardcoded vault folder references or has been updated to use configurable/dynamic paths
   3. Any path references in scripts are documented in a comment explaining their purpose
-**Plans**: TBD
+**Plans:** 1 plan
+
+Plans:
+- [x] 01-01-PLAN.md — Audit both scripts for hardcoded vault content paths and add minimal documentation if warranted
 
 ### Phase 2: Vault Mapping
 **Goal**: Architect agent guides users through vault mapping during onboarding and produces a vault-map.md that covers both new and existing vault scenarios
@@ -68,7 +71,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Scripts Audit | 0/TBD | Not started | - |
+| 1. Scripts Audit | 1/1 | Complete | 2026-03-24 |
 | 2. Vault Mapping | 0/TBD | Not started | - |
 | 3. Agent Path Resolution | 0/TBD | Not started | - |
 | 4. Documentation | 0/TBD | Not started | - |
