@@ -256,6 +256,137 @@ terms-accepted-date: "YYYY-MM-DD"
 9. **Gmail** — "Do you use Gmail? The Postman agent can scan your inbox for actionable emails and save relevant information to your vault."
 10. **Google Calendar** — "Do you use Google Calendar? The Postman can import events, create meeting notes, and keep your vault synced with your schedule."
 
+#### Phase 3b: Vault Mapping
+
+Before creating any folders, map the vault's logical roles to actual folder paths. This step always produces `Meta/vault-map.md` — for both new and existing vaults.
+
+**Determine vault type:** Check if at least one non-hidden, non-Meta content folder exists in the vault root (e.g., any folder that is not `.obsidian/`, `.trash/`, `.git/`, `Meta/`, or other dot-prefixed directories).
+- If no content folders exist → this is a **new vault** → follow the New Vault path below
+- If content folders exist → this is an **existing vault** → follow the Existing Vault path below
+
+---
+
+**NEW VAULT PATH**
+
+Show the user the default folder names:
+
+> "Before I create your folders, I want to confirm the names. Here are the defaults I'll use:
+>
+> - Inbox: `00-Inbox`
+> - Projects: `01-Projects`
+> - Areas: `02-Areas`
+> - Resources: `03-Resources`
+> - Archive: `04-Archive`
+> - People: `05-People`
+> - Meetings: `06-Meetings`
+> - Daily Notes: `07-Daily`
+> - Templates: `Templates`
+> - Meta: `Meta`
+> - Maps of Content: `MOC`
+>
+> These look good? Say yes to continue, or tell me which ones you'd like to rename."
+
+If the user confirms → record defaults and write `Meta/vault-map.md` (see format below).
+If the user suggests changes → update the relevant entries, confirm the final list, then write `Meta/vault-map.md`.
+
+---
+
+**EXISTING VAULT PATH**
+
+Step 1 — Scan the folder tree:
+
+```bash
+find . -mindepth 1 -maxdepth 3 -type d ! -path '*/.*' | head -50 | sort
+```
+
+Step 2 — Show the user the scanned tree:
+> "Here's what I found in your vault:
+> [paste the folder list]
+> Let me map these to the standard roles..."
+
+Step 3 — Auto-map obvious matches using case-insensitive keyword matching:
+
+| Role | Auto-match keywords (case-insensitive) |
+|------|----------------------------------------|
+| inbox | inbox, capture, in, incoming, quick, scratch, fleeting |
+| projects | projects, project, proj, active |
+| areas | areas, area, domains, zones |
+| resources | resources, resource, refs, references, library, kb |
+| archive | archive, archived, done, completed, old, storage |
+| people | people, contacts, persons, team, relationships |
+| meetings | meetings, meeting, calls, standup |
+| daily | daily, journal, diary, log, notes |
+| templates | templates, template, tpl |
+| meta | meta, system, config, setup, vault |
+| moc | moc, indexes, maps, index |
+
+If a folder matches one role unambiguously → auto-map it. Report the auto-mappings to the user:
+> "I matched these automatically: [list]. Does that look right?"
+
+Step 4 — For each folder that matches zero or multiple roles: ask the user which role it serves, or whether to ignore it.
+
+Step 5 — For each role with no matching folder: offer to create it at the default path or skip it:
+> "I don't see a People folder. Want me to create one at `05-People/`, or skip this role?"
+
+If the user wants to skip a role, still include it in vault-map.md with the default path value — agents need a usable path for every role.
+
+Step 6 — For folders that serve dual purposes (e.g., `Notes/` contains both projects and resources): gently suggest splitting for cleaner separation, but accept the single folder mapped to multiple roles if the user prefers.
+
+Step 7 — Confirm the complete mapping with the user before writing `Meta/vault-map.md`.
+
+**Important:** Respect the user's existing folder names. If they have `Inbox/` instead of `00-Inbox/`, map `inbox: Inbox`. Never suggest renaming existing folders.
+
+---
+
+**vault-map.md format**
+
+Write `Meta/vault-map.md` with this structure (create `Meta/` first if it does not exist):
+
+```markdown
+---
+inbox: 00-Inbox
+projects: 01-Projects
+areas: 02-Areas
+resources: 03-Resources
+archive: 04-Archive
+people: 05-People
+meetings: 06-Meetings
+daily: 07-Daily
+templates: Templates
+meta: Meta
+moc: MOC
+---
+
+# Vault Map
+
+This file maps logical roles to actual folder paths in your vault.
+All crew agents read this file to find the right folders.
+
+To customize: edit the path values above. Do not change the role names on the left.
+
+| Role | Folder | Purpose |
+|------|--------|---------|
+| inbox | 00-Inbox | Capture zone — new notes land here first |
+| projects | 01-Projects | Active projects |
+| areas | 02-Areas | Life areas (Work, Health, Finance, etc.) |
+| resources | 03-Resources | Reference material |
+| archive | 04-Archive | Completed or inactive content |
+| people | 05-People | Notes about people |
+| meetings | 06-Meetings | Meeting notes |
+| daily | 07-Daily | Daily notes |
+| templates | Templates | Note templates |
+| meta | Meta | Vault metadata and configuration |
+| moc | MOC | Maps of Content (topic indexes) |
+```
+
+Replace the default values with the user's confirmed folder paths. The YAML frontmatter values are the actual folder names/paths. All 11 roles must always be present — even if using defaults. The markdown table below the frontmatter should also reflect the actual values.
+
+**Vault mapping rules:**
+- vault-map.md is ALWAYS created — never skip it, even for new vaults with all defaults
+- Never suggest renaming existing folders — map to what exists
+- If the vault scan fails or returns nothing useful, fall through to the new-vault default path
+- Hidden/dot-prefixed folders (.obsidian/, .trash/, .git/) are always excluded from scanning
+
 #### Phase 4: Confirmation & Creation
 
 Summarize everything the user has told you. Ask them to confirm or correct anything. Then execute the following steps in order:
