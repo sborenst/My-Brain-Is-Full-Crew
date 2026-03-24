@@ -7,12 +7,12 @@
 
 ### Vault Mapping
 
-- [ ] **MAP-01**: Architect creates `Meta/vault-map.md` with YAML-in-markdown format mapping logical roles to actual folder paths
-- [ ] **MAP-02**: For existing vaults, Architect scans top-level and nested folder structure to detect current layout
-- [ ] **MAP-03**: For existing vaults, Architect interviews user on ambiguous or missing mappings (e.g., "Where do you keep people notes?")
-- [ ] **MAP-04**: For new vaults, Architect asks user folder name preferences and offers current defaults as suggestions
-- [ ] **MAP-05**: vault-map.md is human-readable and manually editable
-- [ ] **MAP-06**: Vault mapping runs at the start of Phase 4 (after user interview, before folder creation)
+- [x] **MAP-01**: Architect creates `Meta/vault-map.md` with YAML-in-markdown format mapping logical roles to actual folder paths
+- [x] **MAP-02**: For existing vaults, Architect scans top-level and nested folder structure to detect current layout
+- [x] **MAP-03**: For existing vaults, Architect interviews user on ambiguous or missing mappings (e.g., "Where do you keep people notes?")
+- [x] **MAP-04**: For new vaults, Architect asks user folder name preferences and offers current defaults as suggestions
+- [x] **MAP-05**: vault-map.md is human-readable and manually editable
+- [x] **MAP-06**: Vault mapping runs at the start of Phase 4 (after user interview, before folder creation)
 
 ### Agent Path Resolution
 
@@ -51,12 +51,12 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| MAP-01 | Phase 2 | Pending |
-| MAP-02 | Phase 2 | Pending |
-| MAP-03 | Phase 2 | Pending |
-| MAP-04 | Phase 2 | Pending |
-| MAP-05 | Phase 2 | Pending |
-| MAP-06 | Phase 2 | Pending |
+| MAP-01 | Phase 2 | Complete |
+| MAP-02 | Phase 2 | Complete |
+| MAP-03 | Phase 2 | Complete |
+| MAP-04 | Phase 2 | Complete |
+| MAP-05 | Phase 2 | Complete |
+| MAP-06 | Phase 2 | Complete |
 | AGT-01 | Phase 3 | Pending |
 | AGT-02 | Phase 3 | Pending |
 | AGT-03 | Phase 3 | Pending |

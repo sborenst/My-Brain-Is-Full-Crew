@@ -13,7 +13,7 @@ This roadmap transforms the Crew from a system with hardcoded folder paths into 
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Scripts Audit** - Review and update launchme.sh and updateme.sh for hardcoded vault path references
-- [ ] **Phase 2: Vault Mapping** - Enhance Architect agent with vault-mapping onboarding phase that generates vault-map.md
+- [x] **Phase 2: Vault Mapping** - Enhance Architect agent with vault-mapping onboarding phase that generates vault-map.md
 - [ ] **Phase 3: Agent Path Resolution** - Replace all hardcoded paths across 8 agents and CLAUDE.md with role tokens and resolution preamble
 - [ ] **Phase 4: Documentation** - Create docs/vault-mapping.md explaining the pattern, customization, and defaults
 
@@ -40,8 +40,11 @@ Plans:
   1. Running Architect onboarding on an existing vault produces a `Meta/vault-map.md` that reflects the user's actual folder layout after an interview covering ambiguous mappings
   2. Running Architect onboarding on a new vault produces a `Meta/vault-map.md` with user-chosen or default folder names
   3. The generated vault-map.md is valid YAML-in-markdown that a human can open, read, and manually edit without documentation
-  4. Vault mapping runs at the correct onboarding sequence position (Phase 4, after user interview)
-**Plans**: TBD
+  4. Vault mapping runs at the correct onboarding sequence position (Phase 3b, after user interview)
+**Plans:** 1 plan
+
+Plans:
+- [x] 02-01-PLAN.md — Insert Phase 3b vault mapping section and update Phase 4 conditional folder creation in architect.md
 
 ### Phase 3: Agent Path Resolution
 **Goal**: All 8 agent files and CLAUDE.md use role tokens for vault paths and can resolve those tokens from vault-map.md, with full backward compatibility when vault-map.md is absent
@@ -72,6 +75,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Scripts Audit | 1/1 | Complete | 2026-03-24 |
-| 2. Vault Mapping | 0/TBD | Not started | - |
+| 2. Vault Mapping | 1/1 | Complete | 2026-03-24 |
 | 3. Agent Path Resolution | 0/TBD | Not started | - |
 | 4. Documentation | 0/TBD | Not started | - |
