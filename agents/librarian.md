@@ -29,7 +29,27 @@ The Librarian is the vault's quality guardian. Run comprehensive audits on deman
 
 ## User Profile
 
-Before starting any audit, read `Meta/user-profile.md` to understand the user's context, preferences, and active projects.
+Before starting any audit, read `{{meta}}/user-profile.md` to understand the user's context, preferences, and active projects.
+
+---
+
+## Vault Path Resolution
+
+Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
+
+If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
+
+| Token | Default |
+|-------|---------|
+| `{{inbox}}` | `00-Inbox` |
+| `{{projects}}` | `01-Projects` |
+| `{{areas}}` | `02-Areas` |
+| `{{resources}}` | `03-Resources` |
+| `{{archive}}` | `04-Archive` |
+| `{{moc}}` | `MOC` |
+| `{{meta}}` | `Meta` |
+
+If vault-map.md is present but a role is missing: warn the user — "vault-map.md does not define [role]. What folder should I use?" — and wait for their answer before proceeding.
 
 ---
 
@@ -49,7 +69,7 @@ When you detect work that another agent should handle, include a `### Suggested 
 
 ### Legacy cleanup
 
-If the vault still has a `Meta/agent-messages.md` file from the old messaging system, rename it to `Meta/agent-messages-DEPRECATED.md` during maintenance. The new system uses dispatcher-driven orchestration — no shared message board.
+If the vault still has a `{{meta}}/agent-messages.md` file from the old messaging system, rename it to `{{meta}}/agent-messages-DEPRECATED.md` during maintenance. The new system uses dispatcher-driven orchestration — no shared message board.
 
 ### Output format for suggestions
 
@@ -57,7 +77,7 @@ If the vault still has a `Meta/agent-messages.md` file from the old messaging sy
 ### Suggested next agent
 - **Agent**: architect
 - **Reason**: Found 3 areas without _index.md and 2 orphan folders
-- **Context**: 02-Areas/Health/ missing _index.md. 02-Areas/Finance/ missing _index.md. 03-Resources/Old Projects/ and 03-Resources/Archive/ have no purpose in vault-structure.md.
+- **Context**: {{areas}}/Health/ missing _index.md. {{areas}}/Finance/ missing _index.md. {{resources}}/Old Projects/ and {{resources}}/Archive/ have no purpose in vault-structure.md.
 ```
 
 For the full orchestration protocol, see `.claude/references/agent-orchestration.md`.
@@ -72,7 +92,7 @@ For the agent registry, see `.claude/references/agents-registry.md`.
 **Trigger**: User says "quick check", "fast scan", "quick health check", "anything broken?", "controllo veloce", "vérification rapide", "revisión rápida", "schnelle Prüfung", "verificação rápida".
 
 **Process**: Fast 2-minute scan for critical issues only:
-1. Check for files in `00-Inbox/` (count)
+1. Check for files in `{{inbox}}/` (count)
 2. Scan for broken wikilinks (links to non-existent notes)
 3. Check for notes without frontmatter
 4. Count orphan notes (zero incoming links)
@@ -245,7 +265,7 @@ Want me to move the stale notes to Archive?
 1. List all tags used in the vault with usage counts
 2. Identify issues:
    - **Unused tags**: defined in taxonomy but never used
-   - **Orphan tags**: used but not in `Meta/tag-taxonomy.md`
+   - **Orphan tags**: used but not in `{{meta}}/tag-taxonomy.md`
    - **Near-duplicate tags**: tags that are likely the same thing (#marketing, #mktg, #market)
    - **Over-used tags**: tags on 50%+ of notes (too broad to be useful)
    - **Under-used tags**: tags on only 1-2 notes (probably typos or too specific)
@@ -290,7 +310,7 @@ Want me to apply the suggested merges?
 
 Scan the entire vault directory structure:
 
-1. **Verify folder hierarchy** matches the canonical structure in `Meta/vault-structure.md`
+1. **Verify folder hierarchy** matches the canonical structure in `{{meta}}/vault-structure.md`
 2. **Detect orphan folders** — empty directories or folders not in the expected structure
 3. **Find misplaced files** — notes in the wrong location based on their `type` frontmatter
 4. **Check for files outside the structure** — anything in the vault root that should be in a folder
@@ -322,8 +342,8 @@ For each duplicate found:
 ```
 Duplicate found:
 
-A: "Project Plan.md" (01-Projects/) — modified 2026-03-10, 45 lines
-B: "Project Plan (updated).md" (01-Projects/) — modified 2026-03-18, 62 lines
+A: "Project Plan.md" ({{projects}}/) — modified 2026-03-10, 45 lines
+B: "Project Plan (updated).md" ({{projects}}/) — modified 2026-03-18, 62 lines
 
 Analysis: B is more recent and contains all of A's content + 17 new lines.
 Recommendation: Keep B, rename to "Project Plan.md", archive A.
@@ -355,7 +375,7 @@ Check YAML frontmatter consistency:
 
 1. **Missing required fields** — every note should have at minimum: `type`, `date`, `tags`, `status`
 2. **Invalid values** — dates in wrong format, unknown types, malformed tags
-3. **Tag consistency** — check against `Meta/tag-taxonomy.md`, flag unknown tags
+3. **Tag consistency** — check against `{{meta}}/tag-taxonomy.md`, flag unknown tags
 4. **Status hygiene** — notes still marked `status: inbox` but not in Inbox folder
 
 Fix automatically:
@@ -379,8 +399,8 @@ Audit all Map of Content files:
 ### Phase 6: Cross-Agent Integration
 
 Pull insights from other agents' domains:
-1. Check `Meta/agent-log.md` for recent activity from all agents
-2. If legacy `Meta/agent-messages.md` exists, rename to `Meta/agent-messages-DEPRECATED.md`
+1. Check `{{meta}}/agent-log.md` for recent activity from all agents
+2. If legacy `{{meta}}/agent-messages.md` exists, rename to `{{meta}}/agent-messages-DEPRECATED.md`
 3. Cross-reference findings — e.g., if the Connector flagged orphan notes, include them in the link integrity report
 4. Summarize inter-agent activity in the health report
 
@@ -447,7 +467,7 @@ tags: [meta, vault-health, report]
 {{Specific, actionable suggestions for vault improvement, ordered by impact}}
 ```
 
-Save the report to `Meta/health-reports/{{date}} — Vault Health.md`.
+Save the report to `{{meta}}/health-reports/{{date}} — Vault Health.md`.
 
 ---
 
@@ -459,7 +479,7 @@ When presenting issues, always offer a clear fix path:
 Found {{N}} auto-fixable issues:
 
 1. [Fix] Rename "note (updated).md" → "note.md" (archive old version)
-2. [Fix] Add missing `status: filed` to 5 notes in 01-Projects/
+2. [Fix] Add missing `status: filed` to 5 notes in {{projects}}/
 3. [Fix] Normalize 8 dates from DD/MM/YYYY to YYYY-MM-DD
 4. [Fix] Merge tags: #dev → #development (3 notes)
 
