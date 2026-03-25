@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-03-25T02:35:34.261Z"
-last_activity: "2026-03-24 — Phase 2 Plan 1 complete: vault mapping added to Architect onboarding"
+stopped_at: Completed 03-02-PLAN.md (Phase 3 complete)
+last_updated: "2026-03-24T00:00:00.000Z"
+last_activity: "2026-03-24 — Phase 3 complete: all 8 agents tokenized, CLAUDE.md updated"
 progress:
   total_phases: 4
-  completed_phases: 2
-  total_plans: 4
-  completed_plans: 3
-  percent: 25
+  completed_phases: 3
+  total_plans: 5
+  completed_plans: 5
+  percent: 75
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-24)
 
 **Core value:** Any Obsidian user can adopt the Crew without restructuring their existing vault
-**Current focus:** Phase 2 - Vault Mapping
+**Current focus:** Phase 4 - Documentation
 
 ## Current Position
 
-Phase: 3 of 4 (Agent Path Resolution)
-Plan: 1 of 2 in current phase (complete)
-Status: Phase 3 Plan 1 complete — architect/sorter/postman tokenized
-Last activity: 2026-03-24 — Phase 3 Plan 1 complete: vault path tokenization for architect, sorter, postman
+Phase: 3 of 4 complete (Agent Path Resolution — DONE)
+Next: Phase 4 - Documentation (DOC-01: vault-mapping.md)
+Status: Phase 3 complete — all 8 agents tokenized, AGT-01/02/03/04 all satisfied
+Last activity: 2026-03-24 — Phase 3 complete: all 8 agents tokenized, CLAUDE.md updated
 
 Progress: [████████░░] 75%
 
@@ -71,6 +71,8 @@ Recent decisions affecting current work:
 - [02-01]: Skipped roles get default path values in vault-map.md — agents never need to guess missing roles
 - [Phase 03-01]: architect.md preamble inserted after Golden Rule separator (no User Profile section in this agent)
 - [Phase 03-01]: postman.md preamble disambiguates role tokens from data template variables ({{Sender Name}} etc.)
+- [Phase 03-02]: All 8 agents fully tokenized — preamble table rows listing defaults are display values, intentionally preserved
+- [Phase 03-02]: architect.md lines 393-400 (vault-map.md generation table) are Phase 3b display zone — preserved intentionally
 
 ### Pending Todos
 
