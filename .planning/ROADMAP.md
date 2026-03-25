@@ -55,7 +55,11 @@ Plans:
   2. Each agent file contains a path resolution preamble that explains how to read vault-map.md and substitute role tokens
   3. When vault-map.md is absent, agents behave identically to their pre-change behavior using built-in default paths
   4. A user with a non-standard vault layout who has a valid vault-map.md gets agent actions directed to their actual folders
-**Plans**: TBD
+**Plans:** 1/2 plans executed
+
+Plans:
+- [ ] 03-01-PLAN.md — Tokenize architect.md, sorter.md, postman.md (heavy-path agents: preambles + 96 path replacements)
+- [ ] 03-02-PLAN.md — Tokenize scribe.md, transcriber.md, librarian.md, seeker.md, connector.md + CLAUDE.md awareness section
 
 ### Phase 4: Documentation
 **Goal**: Users and contributors can understand the vault-mapping pattern, customize their vault-map.md, and know the default values from a single reference document
@@ -76,5 +80,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Scripts Audit | 1/1 | Complete | 2026-03-24 |
 | 2. Vault Mapping | 1/1 | Complete | 2026-03-24 |
-| 3. Agent Path Resolution | 0/TBD | Not started | - |
+| 3. Agent Path Resolution | 1/2 | In Progress|  |
 | 4. Documentation | 0/TBD | Not started | - |

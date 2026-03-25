@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-25T01:26:46.528Z"
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-25T02:35:34.261Z"
 last_activity: "2026-03-24 — Phase 2 Plan 1 complete: vault mapping added to Architect onboarding"
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 2
-  completed_plans: 2
+  total_plans: 4
+  completed_plans: 3
   percent: 25
 ---
 
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-03-24)
 
 ## Current Position
 
-Phase: 2 of 4 (Vault Mapping)
-Plan: 1 of 1 in current phase (complete)
-Status: Phase 2 Plan 1 complete — ready for Phase 3
-Last activity: 2026-03-24 — Phase 2 Plan 1 complete: vault mapping added to Architect onboarding
+Phase: 3 of 4 (Agent Path Resolution)
+Plan: 1 of 2 in current phase (complete)
+Status: Phase 3 Plan 1 complete — architect/sorter/postman tokenized
+Last activity: 2026-03-24 — Phase 3 Plan 1 complete: vault path tokenization for architect, sorter, postman
 
-Progress: [███░░░░░░░] 25%
+Progress: [████████░░] 75%
 
 ## Performance Metrics
 
@@ -51,6 +51,7 @@ Progress: [███░░░░░░░] 25%
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 03-agent-path-resolution P01 | 5 | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,8 @@ Recent decisions affecting current work:
 - [02-01]: vault-map.md uses content-folder detection (non-hidden, non-Meta folders) to distinguish new vs existing vaults
 - [02-01]: All 11 roles always present in vault-map.md even when using defaults — Phase 3 agents always have a usable path
 - [02-01]: Skipped roles get default path values in vault-map.md — agents never need to guess missing roles
+- [Phase 03-01]: architect.md preamble inserted after Golden Rule separator (no User Profile section in this agent)
+- [Phase 03-01]: postman.md preamble disambiguates role tokens from data template variables ({{Sender Name}} etc.)
 
 ### Pending Todos
 
@@ -79,6 +82,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-24T22:09:09Z
-Stopped at: Completed 02-01-PLAN.md
-Resume file: .planning/phases/03-agent-path-resolution/ (next phase)
+Last session: 2026-03-25T02:35:34.258Z
+Stopped at: Completed 03-01-PLAN.md
+Resume file: None

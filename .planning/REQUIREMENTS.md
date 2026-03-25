@@ -16,10 +16,10 @@
 
 ### Agent Path Resolution
 
-- [ ] **AGT-01**: All 8 agent .md files have hardcoded paths replaced with role tokens ({inbox}, {projects}, {areas}, {resources}, {archive}, {people}, {meetings}, {daily}, {templates}, {meta}, {moc})
-- [ ] **AGT-02**: All 8 agents have a path resolution preamble explaining how to read vault-map.md and resolve tokens
+- [x] **AGT-01**: All 8 agent .md files have hardcoded paths replaced with role tokens ({inbox}, {projects}, {areas}, {resources}, {archive}, {people}, {meetings}, {daily}, {templates}, {meta}, {moc})
+- [x] **AGT-02**: All 8 agents have a path resolution preamble explaining how to read vault-map.md and resolve tokens
 - [ ] **AGT-03**: CLAUDE.md updated with role tokens where it references vault paths operationally
-- [ ] **AGT-04**: If vault-map.md is absent, agents fall back to current default paths (full backward compatibility)
+- [x] **AGT-04**: If vault-map.md is absent, agents fall back to current default paths (full backward compatibility)
 
 ### Documentation
 
@@ -57,10 +57,10 @@
 | MAP-04 | Phase 2 | Complete |
 | MAP-05 | Phase 2 | Complete |
 | MAP-06 | Phase 2 | Complete |
-| AGT-01 | Phase 3 | Pending |
-| AGT-02 | Phase 3 | Pending |
+| AGT-01 | Phase 3 | Complete |
+| AGT-02 | Phase 3 | Complete |
 | AGT-03 | Phase 3 | Pending |
-| AGT-04 | Phase 3 | Pending |
+| AGT-04 | Phase 3 | Complete |
 | DOC-01 | Phase 4 | Pending |
 | SCR-01 | Phase 1 | Complete |
 
