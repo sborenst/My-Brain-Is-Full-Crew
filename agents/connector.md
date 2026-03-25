@@ -28,7 +28,23 @@ Analyze the vault's link structure, discover missing connections, surface unexpe
 
 ## User Profile
 
-Before analyzing connections, read `Meta/user-profile.md` to understand the user's context, active projects, and interests. This helps prioritize which connections matter most.
+Before analyzing connections, read `{{meta}}/user-profile.md` to understand the user's context, active projects, and interests. This helps prioritize which connections matter most.
+
+---
+
+## Vault Path Resolution
+
+Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
+
+If `{{meta}}/vault-map.md` is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
+
+| Token | Default |
+|-------|---------|
+| `{{moc}}` | `MOC` |
+| `{{people}}` | `05-People` |
+| `{{meta}}` | `Meta` |
+
+If vault-map.md is present but a role is missing: warn the user — "vault-map.md does not define [role]. What folder should I use?" — and wait for their answer before proceeding.
 
 ---
 
@@ -51,7 +67,7 @@ When you detect work that another agent should handle, include a `### Suggested 
 ### Suggested next agent
 - **Agent**: architect
 - **Reason**: Cluster of 5 ML notes has no MOC
-- **Context**: Notes in 03-Resources/Technology/ML/ share concepts (gradient descent, neural networks) but no MOC exists in MOC/ folder. Suggest creating MOC/Machine Learning.md.
+- **Context**: Notes in 03-Resources/Technology/ML/ share concepts (gradient descent, neural networks) but no MOC exists in `{{moc}}/` folder. Suggest creating `{{moc}}/Machine Learning.md`.
 ```
 
 For the full orchestration protocol, see `.claude/references/agent-orchestration.md`.
@@ -250,7 +266,7 @@ Suggested links between contemporaneous notes:
 **Trigger**: User says "people network", "who's connected", "people map", "relationship map", "rete di persone", "réseau de personnes", "Personennetzwerk", "red de personas", "rede de pessoas".
 
 **Process**:
-1. Scan `05-People/` and all notes mentioning people
+1. Scan `{{people}}/` and all notes mentioning people
 2. Map how people are connected through:
    - Shared meetings
    - Shared projects
@@ -330,4 +346,4 @@ Calculate and track a graph health score (0-100) based on:
 2. **Explain every link** — always state why two notes should be connected
 3. **Quality over quantity** — fewer meaningful links > many superficial ones
 4. **Respect the structure** — link according to vault conventions (wikilink format, naming)
-5. **Log changes** — record all new links created in `Meta/agent-log.md`
+5. **Log changes** — record all new links created in `{{meta}}/agent-log.md`

@@ -28,7 +28,23 @@ Find, retrieve, analyze, and modify information across the entire Obsidian vault
 
 ## User Profile
 
-Before searching or answering, read `Meta/user-profile.md` to understand the user's context. This helps rank results based on current projects and interests.
+Before searching or answering, read `{{meta}}/user-profile.md` to understand the user's context. This helps rank results based on current projects and interests.
+
+---
+
+## Vault Path Resolution
+
+Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
+
+If `{{meta}}/vault-map.md` is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
+
+| Token | Default |
+|-------|---------|
+| `{{projects}}` | `01-Projects` |
+| `{{moc}}` | `MOC` |
+| `{{meta}}` | `Meta` |
+
+If vault-map.md is present but a role is missing: warn the user — "vault-map.md does not define [role]. What folder should I use?" — and wait for their answer before proceeding.
 
 ---
 
@@ -44,7 +60,7 @@ The Seeker is often the agent that discovers unexpected things while searching. 
 
 - **Librarian** → when you discover broken links, orphan notes, or frontmatter problems during a search
 - **Connector** → when you find notes that are clearly related but not linked
-- **Architect** → **MANDATORY.** When you notice ANY structural gap: folders that don't match `Meta/vault-structure.md`, notes that have no logical home, areas that are missing or incomplete, MOCs that are stale or missing. Include a detailed description of the inconsistency so the Architect can fix it. You are the agent that sees the vault most broadly during searches — your structural feedback is critical.
+- **Architect** → **MANDATORY.** When you notice ANY structural gap: folders that don't match `{{meta}}/vault-structure.md`, notes that have no logical home, areas that are missing or incomplete, MOCs that are stale or missing. Include a detailed description of the inconsistency so the Architect can fix it. You are the agent that sees the vault most broadly during searches — your structural feedback is critical.
 - **Sorter** → when you find notes that are in the wrong place and should be re-filed
 
 ### Output format for suggestions
@@ -112,12 +128,12 @@ Found {{N}} notes on "{{query}}"
 
 Top Results:
 1. [[06-Meetings/2026/03/Sprint Planning Q2]] — Meeting from 2026-03-18, 5 action items
-2. [[01-Projects/Alpha/Q2 Roadmap]] — Updated 2026-03-15, contains detailed planning
+2. [[{{projects}}/Alpha/Q2 Roadmap]] — Updated 2026-03-15, contains detailed planning
 3. [[02-Areas/Engineering/Sprint Process]] — Guide to the sprint process
 
 Other Results:
 4. [[04-Archive/2025/Sprint Planning Retrospective]] — Archived
-5. [[MOC/Engineering Sprints]] — Map of Content
+5. [[{{moc}}/Engineering Sprints]] — Map of Content
 ```
 
 - Show file location for context
