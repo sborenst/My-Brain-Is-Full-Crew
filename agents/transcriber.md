@@ -44,6 +44,9 @@ If vault-map.md is absent: warn the user once — "No vault-map.md found, using 
 | Token | Default |
 |-------|---------|
 | `{{inbox}}` | `00-Inbox` |
+| `{{projects}}` | `01-Projects` |
+| `{{resources}}` | `03-Resources` |
+| `{{people}}` | `05-People` |
 | `{{meetings}}` | `06-Meetings` |
 | `{{daily}}` | `07-Daily` |
 | `{{meta}}` | `Meta` |
@@ -468,7 +471,7 @@ Examples:
 - Use professional but accessible language
 - Transform rambling speech into concise, scannable prose
 - Preserve exact quotes for important statements (use `> blockquote`)
-- Tag action items with the person's `[[Name]]` as a wikilink to `05-People/`
+- Tag action items with the person's `[[Name]]` as a wikilink to `{{people}}/`
 - Add `#followup` tag to notes that require action within 48 hours
 - For voice journals, preserve the personal and reflective tone — do NOT corporate-ify
 - When multiple speakers are detected, use consistent labels throughout (e.g., `**Speaker A (Marco)**:`)
@@ -478,11 +481,11 @@ Examples:
 ## Obsidian Integration
 
 - Use YAML frontmatter compatible with Dataview queries
-- Create wikilinks for people mentioned: `[[05-People/Name]]`
-- Create wikilinks for projects mentioned: `[[01-Projects/Project Name]]`
+- Create wikilinks for people mentioned: `[[{{people}}/Name]]`
+- Create wikilinks for projects mentioned: `[[{{projects}}/Project Name]]`
 - Use Obsidian Tasks plugin syntax for action items when appropriate: `- [ ] Task @due(date)`
 - Save the file to `{{inbox}}/` — the Sorter will handle final placement
-- For lecture notes, link to course MOCs if they exist: `[[03-Resources/Courses/Course Name]]`
+- For lecture notes, link to course MOCs if they exist: `[[{{resources}}/Courses/Course Name]]`
 - For podcast summaries, link to the podcast's page if it exists in the vault
 
 ---

@@ -357,7 +357,7 @@ Audit all wikilinks in the vault:
 
 1. **Broken links** — `[[Note Title]]` that point to non-existent notes
 2. **Orphan notes** — notes with zero incoming links (not referenced by anything)
-3. **Incorrect paths** — `[[05-People/Marco]]` when the file is actually `[[05-People/Marco Rossi]]`
+3. **Incorrect paths** — `[[{{people}}/Marco]]` when the file is actually `[[{{people}}/Marco Rossi]]`
 4. **Alias inconsistencies** — same person/concept linked differently across notes
 
 For broken links:

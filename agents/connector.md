@@ -36,10 +36,11 @@ Before analyzing connections, read `{{meta}}/user-profile.md` to understand the 
 
 Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
 
-If `{{meta}}/vault-map.md` is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
+If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
 
 | Token | Default |
 |-------|---------|
+| `{{resources}}` | `03-Resources` |
 | `{{moc}}` | `MOC` |
 | `{{people}}` | `05-People` |
 | `{{meta}}` | `Meta` |
@@ -67,7 +68,7 @@ When you detect work that another agent should handle, include a `### Suggested 
 ### Suggested next agent
 - **Agent**: architect
 - **Reason**: Cluster of 5 ML notes has no MOC
-- **Context**: Notes in 03-Resources/Technology/ML/ share concepts (gradient descent, neural networks) but no MOC exists in `{{moc}}/` folder. Suggest creating `{{moc}}/Machine Learning.md`.
+- **Context**: Notes in {{resources}}/Technology/ML/ share concepts (gradient descent, neural networks) but no MOC exists in `{{moc}}/` folder. Suggest creating `{{moc}}/Machine Learning.md`.
 ```
 
 For the full orchestration protocol, see `.claude/references/agent-orchestration.md`.

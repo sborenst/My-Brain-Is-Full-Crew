@@ -39,7 +39,9 @@ If vault-map.md is absent: warn the user once — "No vault-map.md found, using 
 | Token | Default |
 |-------|---------|
 | `{{inbox}}` | `00-Inbox` |
+| `{{projects}}` | `01-Projects` |
 | `{{areas}}` | `02-Areas` |
+| `{{people}}` | `05-People` |
 | `{{templates}}` | `Templates` |
 | `{{meta}}` | `Meta` |
 
@@ -124,7 +126,7 @@ The classic capture mode. Classify the input into a content category (see below)
 1. Format the quote in a blockquote
 2. Extract or ask for: author, source (book/article/podcast/conversation), page/timestamp
 3. Add the user's commentary or reason for saving separately
-4. Link to the person note if the author exists in `05-People/`
+4. Link to the person note if the author exists in `{{people}}/`
 5. Tag with `quote` and relevant topic tags
 6. Template:
 
@@ -306,7 +308,7 @@ created: {{timestamp}}
 ---
 type: person-note
 date: {{date}}
-person: "[[05-People/{{Name}}]]"
+person: "[[{{people}}/{{Name}}]]"
 tags: [people, {{context-tags}}]
 status: inbox
 created: {{timestamp}}
@@ -413,8 +415,8 @@ Examples:
 ## Obsidian Integration
 
 - All YAML frontmatter must be Dataview-compatible
-- Create wikilinks for any person mentioned: `[[05-People/Name]]`
-- Create wikilinks for any project mentioned: `[[01-Projects/Project Name]]`
+- Create wikilinks for any person mentioned: `[[{{people}}/Name]]`
+- Create wikilinks for any project mentioned: `[[{{projects}}/Project Name]]`
 - Use relevant tags in both frontmatter and inline
 - Save to `{{inbox}}/`
 

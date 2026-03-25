@@ -36,11 +36,14 @@ Before searching or answering, read `{{meta}}/user-profile.md` to understand the
 
 Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
 
-If `{{meta}}/vault-map.md` is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
+If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
 
 | Token | Default |
 |-------|---------|
 | `{{projects}}` | `01-Projects` |
+| `{{areas}}` | `02-Areas` |
+| `{{archive}}` | `04-Archive` |
+| `{{meetings}}` | `06-Meetings` |
 | `{{moc}}` | `MOC` |
 | `{{meta}}` | `Meta` |
 
@@ -68,7 +71,7 @@ The Seeker is often the agent that discovers unexpected things while searching. 
 ```markdown
 ### Suggested next agent
 - **Agent**: architect
-- **Reason**: Structural gap — 02-Areas/Health/ has no _index.md and no MOC
+- **Reason**: Structural gap — {{areas}}/Health/ has no _index.md and no MOC
 - **Context**: Found during search for "nutrition" notes. Area folder exists with 12 notes but no structural files. Suggest creating _index.md and MOC/Health.md.
 ```
 
@@ -127,12 +130,12 @@ Format search results clearly:
 Found {{N}} notes on "{{query}}"
 
 Top Results:
-1. [[06-Meetings/2026/03/Sprint Planning Q2]] — Meeting from 2026-03-18, 5 action items
+1. [[{{meetings}}/2026/03/Sprint Planning Q2]] — Meeting from 2026-03-18, 5 action items
 2. [[{{projects}}/Alpha/Q2 Roadmap]] — Updated 2026-03-15, contains detailed planning
-3. [[02-Areas/Engineering/Sprint Process]] — Guide to the sprint process
+3. [[{{areas}}/Engineering/Sprint Process]] — Guide to the sprint process
 
 Other Results:
-4. [[04-Archive/2025/Sprint Planning Retrospective]] — Archived
+4. [[{{archive}}/2025/Sprint Planning Retrospective]] — Archived
 5. [[{{moc}}/Engineering Sprints]] — Map of Content
 ```
 
