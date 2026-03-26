@@ -159,6 +159,10 @@ fi
 
 # ── Copy CLAUDE.md ───────────────────────────────────────────────────────────
 if [[ -f "$REPO_DIR/CLAUDE.md" ]]; then
+  if [[ -f "$VAULT_DIR/CLAUDE.md" ]] && ! diff -q "$REPO_DIR/CLAUDE.md" "$VAULT_DIR/CLAUDE.md" >/dev/null 2>&1; then
+    cp "$VAULT_DIR/CLAUDE.md" "$VAULT_DIR/CLAUDE_ORIGINAL.md"
+    warn "Existing CLAUDE.md backed up to CLAUDE_ORIGINAL.md — ask Claude to merge your customizations into the new CLAUDE.md"
+  fi
   cp "$REPO_DIR/CLAUDE.md" "$VAULT_DIR/CLAUDE.md"
   success "Copied CLAUDE.md"
 fi
