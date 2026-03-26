@@ -177,7 +177,7 @@ Before writing the agent .md file, verify you have checked off ALL of these. If 
 
 10. **External tools or MCP servers?** Only ask if the agent interacts with external services. If the user doesn't need this, skip entirely.
 
-11. **Dedicated template?** Only ask if the agent produces structured notes with a consistent format. If yes, create the template in `Templates/`.
+11. **Dedicated template?** Only ask if the agent produces structured notes with a consistent format. If yes, create the template in `{{templates}}/`.
 
 ## Phase 6: Confirmation and Generation
 
