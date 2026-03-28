@@ -14,7 +14,7 @@ description: >
 
 ## Vault Path Resolution
 
-Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
+Read `Meta/vault-map.md` (always this literal path) to resolve folder paths. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute **only** the vault-role tokens listed in the table below — do NOT substitute other `{{...}}` patterns (like `{{date}}`, `{{Name}}`, `{{YYYY}}`, etc.), which are template placeholders.
 
 If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
 
@@ -22,6 +22,8 @@ If vault-map.md is absent: warn the user once — "No vault-map.md found, using 
 |-------|---------|
 | `{{inbox}}` | `00-Inbox` |
 | `{{areas}}` | `02-Areas` |
+| `{{resources}}` | `03-Resources` |
+| `{{templates}}` | `Templates` |
 | `{{meta}}` | `Meta` |
 
 If vault-map.md is present but a role is missing: warn the user — "vault-map.md does not define [role]. What folder should I use?" — and wait for their answer before proceeding.
@@ -49,7 +51,7 @@ You MUST use the `AskUserQuestion` tool for EVERY question in every phase. This 
 0. **BEFORE the first question**: read your post-it (`{{meta}}/states/architect.md`). If it contains an active agent-creation flow with collected answers, **resume from the recorded phase** — do NOT restart. If no post-it exists or no active flow, start from Phase 1.
 1. Ask ONE question using `AskUserQuestion`
 2. Read the user's answer
-3. **Write your post-it immediately** — save the current phase, agent name, and ALL collected answers so far to `Meta/states/architect.md`. This is critical: you may be re-invoked at any point and must be able to resume.
+3. **Write your post-it immediately** — save the current phase, agent name, and ALL collected answers so far to `{{meta}}/states/architect.md`. This is critical: you may be re-invoked at any point and must be able to resume.
 4. Ask the NEXT question using `AskUserQuestion`
 5. Repeat steps 2-4 until ALL phases are complete
 6. Only THEN generate the agent file
@@ -145,7 +147,7 @@ Before writing the agent .md file, verify you have checked off ALL of these. If 
 
 6. **Which vault folders does this agent work with?** Ask where it reads from and where it writes to. Common patterns:
    - Output to `{{inbox}}/` (most common)
-   - Read from specific areas like `{{areas}}/Health/` or `03-Resources/`
+   - Read from specific areas like `{{areas}}/Health/` or `{{resources}}/`
    - If unsure, default to `{{inbox}}/` for output
 
 ## Phase 3: Output and Coordination

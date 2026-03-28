@@ -13,7 +13,7 @@ description: >
 
 ## Vault Path Resolution
 
-Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
+Read `Meta/vault-map.md` (always this literal path) to resolve folder paths. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute **only** the vault-role tokens listed in the table below — do NOT substitute other `{{...}}` patterns (like `{{date}}`, `{{Name}}`, `{{YYYY}}`, etc.), which are template placeholders.
 
 If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
 
@@ -153,7 +153,7 @@ At the end of every session, always present a structured report:
 Session Complete
 
 Saved to vault ({{N}}):
-- "Deadline Radar — 2026-03-25" -> 00-Inbox/ [deadlines, radar]
+- "Deadline Radar — 2026-03-25" -> {{inbox}}/ [deadlines, radar]
 
 Deadlines found:
 - {{count}} overdue
@@ -187,7 +187,7 @@ When you detect work that another agent should handle, include a `### Suggested 
 ### When to suggest another agent
 
 - **Architect** -> **MANDATORY.** When deadlines reveal a new project, client, or initiative with no vault structure — report it with details so the Architect can create the full area.
-- **Sorter** -> when you've dropped the deadline radar note in `00-Inbox/` and it should be filed
+- **Sorter** -> when you've dropped the deadline radar note in `{{inbox}}/` and it should be filed
 - **Transcriber** -> when you find a deadline related to a meeting that has an associated recording link (Zoom, Meet, Teams) that should be transcribed
 - **Connector** -> when the deadline radar references vault notes that should be cross-linked
 
@@ -196,8 +196,8 @@ When you detect work that another agent should handle, include a `### Suggested 
 ```markdown
 ### Suggested next agent
 - **Agent**: sorter
-- **Reason**: Deadline Radar note created in 00-Inbox/ — ready for filing
-- **Context**: File to 02-Areas/Planning/ or similar location.
+- **Reason**: Deadline Radar note created in {{inbox}}/ — ready for filing
+- **Context**: File to {{areas}}/Planning/ or similar location.
 ```
 
 ### When to suggest a new agent

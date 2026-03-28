@@ -16,7 +16,7 @@ model: sonnet
 
 ## Vault Path Resolution
 
-Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
+Read `Meta/vault-map.md` (always this literal path) to resolve folder paths. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute **only** the vault-role tokens listed in the table below — do NOT substitute other `{{...}}` patterns (like `{{date}}`, `{{Name}}`, `{{YYYY}}`, etc.), which are template placeholders.
 
 If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
 
@@ -73,7 +73,7 @@ Always include your proposed solution and what you did in the meantime. Then **c
 ### Suggested next agent
 - **Agent**: architect
 - **Reason**: Destination folder does not exist for "Machine Learning" notes
-- **Context**: 3 notes left in 00-Inbox/. Suggest creating 02-Areas/Learning/Machine Learning/ with sub-folders and MOC.
+- **Context**: 3 notes left in {{inbox}}/. Suggest creating {{areas}}/Learning/Machine Learning/ with sub-folders and MOC.
 ```
 
 For the full orchestration protocol, see `.claude/references/agent-orchestration.md`.
@@ -238,7 +238,7 @@ updated: {{date}}
 - [[Note Title 2]] — {{one-line summary}}
 
 ## Related MOCs
-- [[MOC/Related Topic]]
+- [[{{moc}}/Related Topic]]
 ```
 
 ### Step 5: Generate Daily Digest
@@ -249,17 +249,17 @@ After completing triage, produce a digest summary:
 Triage Complete — {{date}}
 
 Filed:
-- "Sprint Planning Q2" → 06-Meetings/2026/03/
-- "New Onboarding Approach" → 01-Projects/Rebrand/
-- "Client Feedback Pricing" → 02-Areas/Sales/
+- "Sprint Planning Q2" → {{meetings}}/2026/03/
+- "New Onboarding Approach" → {{projects}}/Rebrand/
+- "Client Feedback Pricing" → {{areas}}/Sales/
 
 MOCs Updated:
-- MOC/Meetings Q2
-- MOC/Rebrand Project
+- {{moc}}/Meetings Q2
+- {{moc}}/Rebrand Project
 
 Archive Candidates (not touched in 30+ days):
-- [[02-Areas/Marketing/Old Campaign Brief]] — last updated 2026-02-10
-- [[01-Projects/Beta/Initial Scope]] — last updated 2026-01-28
+- [[{{areas}}/Marketing/Old Campaign Brief]] — last updated 2026-02-10
+- [[{{projects}}/Beta/Initial Scope]] — last updated 2026-01-28
 
 Remaining in Inbox (needs your input):
 - "random notes" — can't classify, what is this about?

@@ -25,7 +25,7 @@ model: opus
 
 ## Vault Path Resolution
 
-Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
+Read `Meta/vault-map.md` (always this literal path) to resolve folder paths. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute **only** the vault-role tokens listed in the table below — do NOT substitute other `{{...}}` patterns (like `{{date}}`, `{{Name}}`, `{{YYYY}}`, etc.), which are template placeholders.
 
 If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
 
@@ -134,7 +134,7 @@ tags: [area, {{area-tag}}]
 {{Links to important reference notes}}
 
 ## MOC
-→ [[MOC/{{Area Name}}]]
+→ [[{{moc}}/{{Area Name}}]]
 ```
 
 #### Step 3: Create the area MOC
@@ -163,7 +163,7 @@ tags: [moc, {{area-tag}}]
 {{Links to active projects in this area}}
 
 ## Related MOCs
-- [[MOC/Index|Master Index]]
+- [[{{moc}}/Index|Master Index]]
 {{Links to related area MOCs}}
 ```
 
@@ -331,7 +331,7 @@ The Architect sets the rules; other agents follow them. **You build the stage; t
 1. **Any agent** encounters a situation where the vault doesn't have the right structure for the content at hand:
    - **Scribe** creates a note but there's no area for the topic
    - **Sorter** can't file a note because no destination folder exists
-   - **Seeker** finds notes that don't match `Meta/vault-structure.md`
+   - **Seeker** finds notes that don't match `{{meta}}/vault-structure.md`
    - **Connector** finds a cluster of 3+ notes that needs a MOC but none exists
    - **Librarian** finds structural inconsistencies, overlapping areas, or taxonomy drift
    - **Transcriber** processes a meeting about a new project/area with no home
@@ -381,7 +381,7 @@ When invoked as part of a chain, the dispatcher provides context from the previo
 
 When you detect work that another agent should handle, include a `### Suggested next agent` section at the end of your output:
 
-- **Sorter** — "A new area was created; there may be notes in 03-Resources that should be moved there"
+- **Sorter** — "A new area was created; there may be notes in {{resources}} that should be moved there"
 - **Librarian** — "Found a structural inconsistency that needs a full audit pass"
 - **Connector** — "New MOC created; it should be linked to related MOCs"
 - **Postman** — "New project folder created; calendar events for this project should be imported"
@@ -391,8 +391,8 @@ When you detect work that another agent should handle, include a `### Suggested 
 ```markdown
 ### Suggested next agent
 - **Agent**: sorter
-- **Reason**: New area "Personal Finance" created — notes in 03-Resources/ may need re-filing
-- **Context**: Created 02-Areas/Personal Finance/ with sub-folders and MOC. 3 notes in 03-Resources/Finance/ should be moved.
+- **Reason**: New area "Personal Finance" created — notes in {{resources}}/ may need re-filing
+- **Context**: Created {{areas}}/Personal Finance/ with sub-folders and MOC. 3 notes in {{resources}}/Finance/ should be moved.
 ```
 
 For the full orchestration protocol, see `.claude/references/agent-orchestration.md`.
@@ -491,8 +491,8 @@ last-run: "{{ISO timestamp}}"
 **After a completed operation (no active flow):**
 ```
 ### Last operation: area-creation
-### Summary: Created 02-Areas/Health/ with sub-folders, _index.md, MOC, templates
-### Issues detected: 5 orphan notes in 03-Resources/ (suggested Connector)
+### Summary: Created {{areas}}/Health/ with sub-folders, _index.md, MOC, templates
+### Issues detected: 5 orphan notes in {{resources}}/ (suggested Connector)
 ```
 
 **Max 30 lines** in the Post-it body. If you need more, summarize. This is a post-it, not a journal.

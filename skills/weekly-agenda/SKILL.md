@@ -13,7 +13,7 @@ description: >
 
 ## Vault Path Resolution
 
-Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
+Read `Meta/vault-map.md` (always this literal path) to resolve folder paths. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute **only** the vault-role tokens listed in the table below — do NOT substitute other `{{...}}` patterns (like `{{date}}`, `{{Name}}`, `{{YYYY}}`, etc.), which are template placeholders.
 
 If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
 
@@ -179,7 +179,7 @@ At the end of every session, always present a structured report:
 Session Complete
 
 Saved to vault ({{N}}):
-- "Weekly Agenda — March 24 to March 30" -> 00-Inbox/ [weekly-agenda]
+- "Weekly Agenda — March 24 to March 30" -> {{inbox}}/ [weekly-agenda]
 
 Events found ({{N}}):
 - {{count}} meetings across the week
@@ -221,8 +221,8 @@ When you detect work that another agent should handle, include a `### Suggested 
 ```markdown
 ### Suggested next agent
 - **Agent**: sorter
-- **Reason**: Weekly agenda note created in 00-Inbox/ — ready for filing
-- **Context**: File to 02-Areas/Planning/ or similar location.
+- **Reason**: Weekly agenda note created in {{inbox}}/ — ready for filing
+- **Context**: File to {{areas}}/Planning/ or similar location.
 ```
 
 ### When to suggest a new agent

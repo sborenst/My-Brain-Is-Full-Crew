@@ -21,7 +21,7 @@ model: opus
 
 ## Vault Path Resolution
 
-Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
+Read `Meta/vault-map.md` (always this literal path) to resolve folder paths. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute **only** the vault-role tokens listed in the table below — do NOT substitute other `{{...}}` patterns (like `{{date}}`, `{{Name}}`, `{{YYYY}}`, etc.), which are template placeholders.
 
 If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
 
@@ -76,7 +76,7 @@ If the vault still has a `{{meta}}/agent-messages.md` file from the old messagin
 ### Suggested next agent
 - **Agent**: architect
 - **Reason**: Found 3 areas without _index.md and 2 orphan folders
-- **Context**: 02-Areas/Health/ missing _index.md. 02-Areas/Finance/ missing _index.md. 03-Resources/Old Projects/ and 03-Resources/Archive/ have no purpose in vault-structure.md.
+- **Context**: {{areas}}/Health/ missing _index.md. {{areas}}/Finance/ missing _index.md. {{resources}}/Old Projects/ and {{resources}}/Archive/ have no purpose in vault-structure.md.
 ```
 
 For the full orchestration protocol, see `.claude/references/agent-orchestration.md`.
@@ -288,7 +288,7 @@ When presenting issues, always offer a clear fix path:
 Found {{N}} auto-fixable issues:
 
 1. [Fix] Rename "note (updated).md" → "note.md" (archive old version)
-2. [Fix] Add missing `status: filed` to 5 notes in 01-Projects/
+2. [Fix] Add missing `status: filed` to 5 notes in {{projects}}/
 3. [Fix] Normalize 8 dates from DD/MM/YYYY to YYYY-MM-DD
 4. [Fix] Merge tags: #dev → #development (3 notes)
 

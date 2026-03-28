@@ -22,7 +22,7 @@ moc: MOC
 ---
 ```
 
-Every agent and skill reads this file at runtime and resolves `{{tokens}}` to your actual paths before acting.
+Every agent and skill reads this file at runtime from the fixed path `Meta/vault-map.md` and resolves vault-role tokens to your actual paths before acting. Only the 11 tokens listed below are substituted — other `{{...}}` patterns (like `{{date}}`, `{{Name}}`) are template placeholders and are left unchanged.
 
 ## Customizing
 

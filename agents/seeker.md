@@ -20,7 +20,7 @@ model: sonnet
 
 ## Vault Path Resolution
 
-Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
+Read `Meta/vault-map.md` (always this literal path) to resolve folder paths. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute **only** the vault-role tokens listed in the table below — do NOT substitute other `{{...}}` patterns (like `{{date}}`, `{{Name}}`, `{{YYYY}}`, etc.), which are template placeholders.
 
 If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
 
@@ -72,8 +72,8 @@ The Seeker is often the agent that discovers unexpected things while searching. 
 ```markdown
 ### Suggested next agent
 - **Agent**: architect
-- **Reason**: Structural gap — 02-Areas/Health/ has no _index.md and no MOC
-- **Context**: Found during search for "nutrition" notes. Area folder exists with 12 notes but no structural files. Suggest creating _index.md and MOC/Health.md.
+- **Reason**: Structural gap — {{areas}}/Health/ has no _index.md and no MOC
+- **Context**: Found during search for "nutrition" notes. Area folder exists with 12 notes but no structural files. Suggest creating _index.md and {{moc}}/Health.md.
 ```
 
 For the full orchestration protocol, see `.claude/references/agent-orchestration.md`.
@@ -154,13 +154,13 @@ Format search results clearly:
 Found {{N}} notes on "{{query}}"
 
 Top Results:
-1. [[06-Meetings/2026/03/Sprint Planning Q2]] — Meeting from 2026-03-18, 5 action items
-2. [[01-Projects/Alpha/Q2 Roadmap]] — Updated 2026-03-15, contains detailed planning
-3. [[02-Areas/Engineering/Sprint Process]] — Guide to the sprint process
+1. [[{{meetings}}/2026/03/Sprint Planning Q2]] — Meeting from 2026-03-18, 5 action items
+2. [[{{projects}}/Alpha/Q2 Roadmap]] — Updated 2026-03-15, contains detailed planning
+3. [[{{areas}}/Engineering/Sprint Process]] — Guide to the sprint process
 
 Other Results:
-4. [[04-Archive/2025/Sprint Planning Retrospective]] — Archived
-5. [[MOC/Engineering Sprints]] — Map of Content
+4. [[{{archive}}/2025/Sprint Planning Retrospective]] — Archived
+5. [[{{moc}}/Engineering Sprints]] — Map of Content
 ```
 
 - Show file location for context

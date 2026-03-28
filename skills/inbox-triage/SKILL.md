@@ -1,7 +1,7 @@
 ---
 name: inbox-triage
 description: >
-  Process all notes in 00-Inbox/: scan, classify by content, route to correct vault
+  Process all notes in {{inbox}}/: scan, classify by content, route to correct vault
   location, update MOCs, extract action items, and generate a daily digest. Triggers:
   EN: "triage the inbox", "clean up the inbox", "sort my notes", "empty inbox", "file my notes", "process the inbox".
   IT: "smista l'inbox", "svuota l'inbox", "ordina le note", "triage dell'inbox", "processa l'inbox".
@@ -13,7 +13,7 @@ description: >
 
 ## Vault Path Resolution
 
-Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
+Read `Meta/vault-map.md` (always this literal path) to resolve folder paths. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute **only** the vault-role tokens listed in the table below — do NOT substitute other `{{...}}` patterns (like `{{date}}`, `{{Name}}`, `{{YYYY}}`, etc.), which are template placeholders.
 
 If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
 
@@ -37,7 +37,7 @@ If vault-map.md is present but a role is missing: warn the user — "vault-map.m
 
 Always respond to the user in their language. Match the language the user writes in.
 
-Process all notes sitting in `00-Inbox/`, classify them, move them to the correct vault location, create wikilinks, and update relevant MOC files. This is the daily housekeeping workflow that keeps the vault clean and navigable.
+Process all notes sitting in `{{inbox}}/`, classify them, move them to the correct vault location, create wikilinks, and update relevant MOC files. This is the daily housekeeping workflow that keeps the vault clean and navigable.
 
 ---
 
@@ -154,7 +154,7 @@ Before moving any note:
 
 After filing notes, update the relevant Map of Content files in `{{moc}}/`:
 
-1. **Check if a relevant MOC exists** in `MOC/` for the topic/area/project
+1. **Check if a relevant MOC exists** in `{{moc}}/` for the topic/area/project
 2. **If yes**: add a wikilink to the new note in the appropriate section
 3. **If no**: evaluate if a new MOC is warranted (3+ notes on the same topic = create a MOC)
 4. **MOC format**:
@@ -176,7 +176,7 @@ updated: {{date}}
 - [[Note Title 2]] — {{one-line summary}}
 
 ## Related MOCs
-- [[MOC/Related Topic]]
+- [[{{moc}}/Related Topic]]
 ```
 
 ### Step 5: Generate Daily Digest
@@ -187,17 +187,17 @@ After completing triage, produce a digest summary:
 Triage Complete — {{date}}
 
 Filed:
-- "Sprint Planning Q2" -> 06-Meetings/2026/03/
-- "New Onboarding Approach" -> 01-Projects/Rebrand/
-- "Client Feedback Pricing" -> 02-Areas/Sales/
+- "Sprint Planning Q2" -> {{meetings}}/2026/03/
+- "New Onboarding Approach" -> {{projects}}/Rebrand/
+- "Client Feedback Pricing" -> {{areas}}/Sales/
 
 MOCs Updated:
-- MOC/Meetings Q2
-- MOC/Rebrand Project
+- {{moc}}/Meetings Q2
+- {{moc}}/Rebrand Project
 
 Archive Candidates (not touched in 30+ days):
-- [[02-Areas/Marketing/Old Campaign Brief]] — last updated 2026-02-10
-- [[01-Projects/Beta/Initial Scope]] — last updated 2026-01-28
+- [[{{areas}}/Marketing/Old Campaign Brief]] — last updated 2026-02-10
+- [[{{projects}}/Beta/Initial Scope]] — last updated 2026-01-28
 
 Remaining in Inbox (needs your input):
 - "random notes" — can't classify, what is this about?

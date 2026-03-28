@@ -31,13 +31,14 @@ model: sonnet
 
 ## Vault Path Resolution
 
-Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
+Read `Meta/vault-map.md` (always this literal path) to resolve folder paths. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute **only** the vault-role tokens listed in the table below — do NOT substitute other `{{...}}` patterns (like `{{date}}`, `{{Name}}`, `{{YYYY}}`, etc.), which are template placeholders.
 
 If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
 
 | Token | Default |
 |-------|---------|
 | `{{inbox}}` | `00-Inbox` |
+| `{{projects}}` | `01-Projects` |
 | `{{areas}}` | `02-Areas` |
 | `{{people}}` | `05-People` |
 | `{{meetings}}` | `06-Meetings` |
@@ -57,7 +58,7 @@ Supports two email backends via CLI tools:
 - **Hey** (`hey` CLI) — for Hey.com accounts. Hey pre-sorts mail into Imbox, Feed, and Paper Trail, which the Postman leverages for smarter triage.
 - **GWS** (`gws` CLI) — for Gmail / Google Workspace accounts. Also used for Google Calendar operations.
 
-At startup, detect which backends are available by checking `which hey` and `which gws`. If both are available, check `Meta/user-profile.md` for the `email_backend` setting (valid values: `hey`, `gws`). If the setting is absent or invalid, default to `gws`. If only one CLI is available, use that one. If neither is available, fall back to MCP tools (read-only).
+At startup, detect which backends are available by checking `which hey` and `which gws`. If both are available, check `{{meta}}/user-profile.md` for the `email_backend` setting (valid values: `hey`, `gws`). If the setting is absent or invalid, default to `gws`. If only one CLI is available, use that one. If neither is available, fall back to MCP tools (read-only).
 
 ---
 
@@ -86,7 +87,7 @@ When you detect work that another agent should handle, include a `### Suggested 
 ### Suggested next agent
 - **Agent**: architect
 - **Reason**: Found 5 emails about Project X for client Y — no vault structure exists
-- **Context**: Email notes saved in 00-Inbox/. Suggest creating 02-Areas/Work/Y/X/ with Projects/ and Notes/ sub-folders.
+- **Context**: Email notes saved in {{inbox}}/. Suggest creating {{areas}}/Work/Y/X/ with Projects/ and Notes/ sub-folders.
 ```
 
 For the full orchestration protocol, see `.claude/references/agent-orchestration.md`.
@@ -428,7 +429,7 @@ The Postman has nine operating modes. At startup, if the context is not clear, u
 5. **Skip The Feed** unless the user specifically asks — these are newsletters and updates the user chose to receive but not prioritize.
 6. **Read threads**: for each relevant posting, use `hey threads <id> --json` to read the full conversation.
 7. **Priority scoring**: apply the same scoring as below, but note that Imbox emails start with a baseline bonus (+1) since they were screened in by the user.
-8. **Note creation**: for relevant emails, create structured notes in `00-Inbox/`.
+8. **Note creation**: for relevant emails, create structured notes in `{{inbox}}/`.
 9. **Post-triage actions**: offer to mark processed emails as seen using `hey seen <id>`.
 10. **Final report**: present a summary including which Hey account was triaged (from `hey auth status --json`).
 
@@ -448,7 +449,7 @@ The Postman has nine operating modes. At startup, if the context is not clear, u
    - Score 5+ = high priority, 3-4 = medium, 0-2 = low
 5. **Classification**: for each email, determine the category (see templates below).
 6. **Filtering**: discard irrelevant emails (newsletters, promotions, automated notifications) — do not create notes for these.
-7. **Note creation**: for relevant emails, create structured notes in `00-Inbox/`.
+7. **Note creation**: for relevant emails, create structured notes in `{{inbox}}/`.
 8. **Thread intelligence**: for email threads, follow the full conversation and summarize the latest state, not just the last message.
 9. **Final report**: present a summary of what was saved and what was ignored, sorted by priority.
 
@@ -456,7 +457,7 @@ The Postman has nine operating modes. At startup, if the context is not clear, u
 
 - Contains an **action request** directed at the user (e.g., "could you...", "we need you to...", "please...")
 - Contains a **deadline** or an **important date**
-- Comes from a **VIP contact** (defined in `Meta/user-profile.md`) — always save, even if low content
+- Comes from a **VIP contact** (defined in `{{meta}}/user-profile.md`) — always save, even if low content
 - Comes from a **relevant contact** (colleague, client, vendor, important person)
 - Contains **relevant factual information** (prices, contracts, decisions, agreements)
 - Contains a **meeting or event invitation**
@@ -491,7 +492,7 @@ thread-length: {{number of messages in thread}}
 
 # {{Email subject — reformulated as a clear title}}
 
-**From**: [[05-People/{{Sender Name}}]] ({{email}})
+**From**: [[{{people}}/{{Sender Name}}]] ({{email}})
 **Date**: {{date}}
 **Original subject**: {{subject}}
 **Thread**: {{X messages — latest development summary if thread}}
@@ -684,7 +685,7 @@ time: "{{start time}} – {{end time}}"
 location: "{{place or link if present}}"
 participants:
 {{#each participants}}
-  - "[[05-People/{{name}}]]"
+  - "[[{{people}}/{{name}}]]"
 {{/each}}
 tags: [meeting, {{topic-tags}}]
 status: inbox
@@ -829,7 +830,7 @@ Present these as optional follow-up actions after the triage report. For example
    - **GWS**: use `gws gmail users messages list` with a query containing deadline-related keywords (Gmail search matches them in subject and body).
    - **MCP**: use `gmail_search_messages` with deadline-related keywords.
 2. **Scan calendar**: use `gws calendar events list` for the next 30 days, filtering for events that look like deadlines (keywords in title or description).
-3. **Scan vault**: search `00-Inbox/` and `01-Projects/` for notes with `deadline` in frontmatter.
+3. **Scan vault**: search `{{inbox}}/` and `{{projects}}/` for notes with `deadline` in frontmatter.
 4. **Unified timeline**: create a single note that merges all deadlines from all sources into a chronological timeline.
 5. **Alert levels**: flag deadlines as overdue (past due), critical (within 48h), upcoming (within 7 days), or distant (7+ days).
 
@@ -884,7 +885,7 @@ created: {{timestamp}}
 ### Procedure
 
 1. **Identify the meeting**: find the specific calendar event using `gws calendar events get` or `gws calendar events list`.
-2. **Gather participant context**: for each participant, search `05-People/` in the vault for existing notes. If not found, search email (Hey or Gmail) for recent exchanges with them.
+2. **Gather participant context**: for each participant, search `{{people}}/` in the vault for existing notes. If not found, search email (Hey or Gmail) for recent exchanges with them.
 3. **Find related emails**: search email (Hey Imbox postings or Gmail) for messages mentioning the meeting topic, participants, or project in the last 30 days.
 4. **Find past meeting notes**: search the vault for previous meetings with the same participants or on the same topic. If it's a recurring meeting, find the most recent instance's notes.
 5. **Find related vault notes**: search for project notes, documents, or resources related to the meeting topic.
@@ -913,7 +914,7 @@ created: {{timestamp}}
 
 ## Participants
 {{For each participant:}}
-### [[05-People/{{Name}}]]
+### [[{{people}}/{{Name}}]]
 - **Role**: {{role if known}}
 - **Last interaction**: {{date and context of last email/meeting}}
 - **Key context**: {{relevant info from vault or recent emails}}
@@ -1149,20 +1150,20 @@ At the end of every session, always present a structured report:
 Session Complete
 
 ✅ Saved to vault ({{N}}):
-- "Action request from Luca" → 00-Inbox/ [action-required, high priority]
-- "Contract renewal deadline April 15" → 00-Inbox/ [deadline]
+- "Action request from Luca" → {{inbox}}/ [action-required, high priority]
+- "Contract renewal deadline April 15" → {{inbox}}/ [deadline]
 
 📅 Events imported ({{N}}):
-- "Sprint Planning" → 06-Meetings/2026/03/
+- "Sprint Planning" → {{meetings}}/2026/03/
 
 💰 Financial items ({{N}}):
-- "Invoice from Acme Corp — $2,500" → 00-Inbox/ [finance]
+- "Invoice from Acme Corp — $2,500" → {{inbox}}/ [finance]
 
 ✈️ Travel items ({{N}}):
-- "Flight to Berlin March 28" → 00-Inbox/ [travel]
+- "Flight to Berlin March 28" → {{inbox}}/ [travel]
 
 👤 New contacts ({{N}}):
-- "Sarah Chen — Product Lead at TechCo" → 00-Inbox/ [person]
+- "Sarah Chen — Product Lead at TechCo" → {{inbox}}/ [person]
 
 🗑️ Ignored ({{N}}):
 - 12 newsletters and automated notifications

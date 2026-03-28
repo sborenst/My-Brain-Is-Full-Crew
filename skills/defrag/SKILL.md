@@ -14,7 +14,7 @@ description: >
 
 ## Vault Path Resolution
 
-Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
+Read `Meta/vault-map.md` (always this literal path) to resolve folder paths. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute **only** the vault-role tokens listed in the table below — do NOT substitute other `{{...}}` patterns (like `{{date}}`, `{{Name}}`, `{{YYYY}}`, etc.), which are template placeholders.
 
 If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
 
@@ -80,7 +80,7 @@ When the user triggers a defrag, execute all 5 phases in order.
 
 2. **Scan `{{areas}}/`** — for each area:
    - Does it have an `_index.md`? If not, create it.
-   - Does it have a corresponding MOC in `MOC/`? If not, create it.
+   - Does it have a corresponding MOC in `{{moc}}/`? If not, create it.
    - Are the sub-folders still relevant? Are there new clusters of notes that warrant a new sub-folder?
    - Are there notes that clearly belong to a different area? Move them.
 

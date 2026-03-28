@@ -13,7 +13,7 @@ description: >
 
 ## Vault Path Resolution
 
-Read `{{meta}}/vault-map.md` to resolve folder paths used in this file. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute every `{{token}}` in this prompt with the corresponding value before acting.
+Read `Meta/vault-map.md` (always this literal path) to resolve folder paths. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute **only** the vault-role tokens listed in the table below — do NOT substitute other `{{...}}` patterns (like `{{date}}`, `{{Name}}`, `{{YYYY}}`, etc.), which are template placeholders.
 
 If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
 
@@ -226,13 +226,13 @@ At the end of every session, always present a structured report:
 Session Complete
 
 Saved to vault ({{N}}):
-- "Meeting Prep: Sprint Planning Q2" -> 00-Inbox/ [meeting-prep]
+- "Meeting Prep: Sprint Planning Q2" -> {{inbox}}/ [meeting-prep]
 
 Events imported ({{N}}):
-- "Sprint Planning" -> 06-Meetings/2026/03/
+- "Sprint Planning" -> {{meetings}}/2026/03/
 
 New contacts ({{N}}):
-- "Sarah Chen — Product Lead at TechCo" -> 00-Inbox/ [person]
+- "Sarah Chen — Product Lead at TechCo" -> {{inbox}}/ [person]
 
 Requires attention:
 - Calendar conflict detected: "Sprint Planning" overlaps with "1:1 with Manager"
