@@ -260,7 +260,7 @@ If you omit `--platform`, the installer asks you to choose. Each platform gets a
 
 > **Codex CLI on Windows:** Codex CLI's Windows support is experimental. Running inside WSL (Windows Subsystem for Linux) is strongly recommended. See [docs/codex-cli.md](docs/codex-cli.md) for details.
 
-Your vault follows a hybrid **PARA + Zettelkasten** structure:
+Your vault follows a hybrid **PARA + Zettelkasten** structure. These are the default folder names — if you already have a vault with different names, the Crew adapts to yours during onboarding (see [Vault Mapping](docs/vault-mapping.md)):
 
 ```
 00-Inbox/          Capture everything here first
@@ -316,7 +316,7 @@ The `/onboarding` skill starts a friendly guided conversation:
 2. **What do you need?** Which agents to activate, which areas of life to manage
 3. **Integrations** Gmail and Google Calendar connections
 
-After onboarding, the Architect creates your entire vault folder structure, saves your profile, leaves you a welcome note, and you're ready to go.
+After onboarding, the Architect generates `Meta/vault-map.md` (mapping your folder names to the Crew's internal tokens), creates your entire vault folder structure, saves your profile, leaves you a welcome note, and you're ready to go. If you already have an existing vault, the Architect scans your folders and adapts — no renaming needed.
 
 ### 5. Start using it
 
@@ -471,6 +471,7 @@ My-Brain-Is-Full-Crew/               ← cloned inside your vault
 ├── docs/                            User-facing documentation
 │   ├── getting-started.md             Step-by-step setup guide
 │   ├── examples.md                    Real-world usage examples
+│   ├── vault-mapping.md               Vault path tokenization guide
 │   └── agents/                        Deep-dive into each agent
 ├── adapters/                        Platform adapters (build system)
 │   ├── lib.sh                         Shared parsing and rewrite helpers
@@ -493,6 +494,7 @@ your-vault/
 │   ├── hooks/                ← file protection and validation hooks
 │   └── references/           ← shared docs
 ├── Meta/
+│   ├── vault-map.md          ← maps folder roles to your actual paths (created during onboarding)
 │   └── scripts/              ← orchestra scripts (permission-free agent commands)
 ├── CLAUDE.md / GEMINI.md / AGENTS.md / ...  ← dispatcher (platform-specific name)
 ├── My-Brain-Is-Full-Crew/    ← the repo (for updates)

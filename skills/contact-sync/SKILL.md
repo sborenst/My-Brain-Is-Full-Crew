@@ -12,6 +12,20 @@ description: >
   PT: "sincronizar contato", "adicionar aos contatos", "salvar contato".
 ---
 
+## Vault Path Resolution
+
+Read `Meta/vault-map.md` (always this literal path) to resolve folder paths. Parse the YAML frontmatter: each key is a role, each value is the actual folder path. Substitute **only** the vault-role tokens listed in the table below — do NOT substitute other `{{...}}` patterns (like `{{date}}`, `{{Name}}`, `{{YYYY}}`, etc.), which are template placeholders.
+
+If vault-map.md is absent: warn the user once — "No vault-map.md found, using default paths" — then use these defaults:
+
+| Token | Default |
+|-------|---------|
+| `{{people}}` | `05-People` |
+
+If vault-map.md is present but a role is missing: warn the user — "vault-map.md does not define [role]. What folder should I use?" — and wait for their answer before proceeding.
+
+---
+
 # Contact Sync
 
 **Always respond to the user in their language. Match the language the user writes in.**
@@ -157,7 +171,7 @@ The skill processes this without asking the user for additional input.
 
 ### When to suggest another agent
 
-- **Scribe** -> if the contact should also have a People note in the vault (`05-People/`), suggest the Scribe create one
+- **Scribe** -> if the contact should also have a People note in the vault (`{{people}}/`), suggest the Scribe create one
 - **Connector** -> if the new contact is mentioned in existing vault notes, suggest linking
 
 ### Output format for suggestions

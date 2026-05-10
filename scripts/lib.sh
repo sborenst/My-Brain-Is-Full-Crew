@@ -467,10 +467,23 @@ install_settings() {
 
 # install_dispatcher <src_file> <dst_path>
 # Copies the source dispatcher file to the destination.
+# Backs up existing customized dispatcher before overwriting.
 # Sets _LAST_CHANGED.
 install_dispatcher() {
   local src="$1" dst="$2"
   [[ -f "$src" ]] || return 0
+  if [[ -f "$dst" ]] && ! diff -q "$src" "$dst" >/dev/null 2>&1; then
+    local dst_dir; dst_dir="$(dirname "$dst")"
+    local dst_base; dst_base="$(basename "$dst" .md)"
+    local backup
+    if [[ -f "$dst_dir/${dst_base}_ORIGINAL.md" ]]; then
+      backup="$dst_dir/${dst_base}_ORIGINAL_$(date +%Y%m%d_%H%M%S).md"
+    else
+      backup="$dst_dir/${dst_base}_ORIGINAL.md"
+    fi
+    cp "$dst" "$backup"
+    warn "Existing $(basename "$dst") backed up to $(basename "$backup")"
+  fi
   copy_if_changed "$src" "$dst"
   [[ $_LAST_CHANGED -eq 1 && $VERBOSE_COPY -eq 1 ]] && info "Updated $(basename "$dst")" || true
 }
